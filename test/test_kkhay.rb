@@ -51,7 +51,7 @@ class KkhayTest < Minitest::Test
     signature = OpenSSL::HMAC.hexdigest("SHA256", secret, payload)
 
     event = Kkhay::Webhook.parse_event(payload, signature, secret)
-    assert_equal :payment.finished, event[:event].to_sym
+    assert_equal "payment.finished", event[:event]
     assert_equal "inv_abc", event[:invoice_id]
 
     assert_raises(Kkhay::SignatureVerificationError) do
